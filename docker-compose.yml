@@ -1,0 +1,51 @@
+version: '3.7'
+
+services:
+  tor-socks-proxy:
+    container_name: tor-socks-proxy
+    image: peterdavehello/tor-socks-proxy:latest
+    ports:
+      - 127.0.0.1:9150:9150
+    restart: unless-stopped
+    networks:
+      - default
+  bitcoin:
+    container_name: bitcoin
+    image: slashfast/docker-bitcoin
+    build:
+      args:
+        - VERSION=25.0
+        - ARCH=x86_64 # aarch64, arm, powerpc64, powerpc64le, riscv64, x86_64
+        - VARIANT=linux-gnu # linux-gnueabihf for arm
+    ports:
+      # P2P network
+      - 8333:8333 # mainnet
+      - 18333:18333 # testnet
+      - 18444:18444 # regnet
+      # RPC interface
+      - 8332:8332 # mainnet
+      - 18332:18332 # testnet
+      - 18443:18443 # regnet
+      # ZMQ ports
+      - 28332:28332 # transactions
+      - 28333:28333 # blocks
+    restart: unless-stopped
+    environment:
+      - RPC_USER=bitcoin
+
+      # Generate a rpcauth pair there 👉 https://jlopp.github.io/bitcoin-core-rpc-auth-generator/
+      # You can pass RPC_AUTH before the command (RPC_AUTH=username:hash docker compose up)
+      - RPC_AUTH= #REQUIRED
+
+      - CHAIN=main
+      - PROXY=tor-socks-proxy:9150
+    depends_on:
+      tor-socks-proxy:
+        condition: service_healthy
+    networks:
+      - default
+    volumes:
+      - ../bitcoin:/data
+
+networks:
+  default:
