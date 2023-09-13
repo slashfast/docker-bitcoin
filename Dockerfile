@@ -1,7 +1,7 @@
 FROM alpine:3.18 as verified
 
 ARG VERSION
-ARG ARCH x86_65
+ARG ARCH x86_64
 ARG VARIANT linux-gnu
 
 ADD https://bitcoincore.org/bin/bitcoin-core-${VERSION}/SHA256SUMS .
