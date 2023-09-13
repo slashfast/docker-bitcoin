@@ -35,8 +35,6 @@ COPY --from=verified /bitcoin-${VERSION}/bin/bitcoin*  /usr/local/bin/
 COPY docker-entrypoint.sh /usr/local/bin/
 
 ENV USER bitcoin
-#ENV PASSWORD changeme
-#ENV NETWORK mainnet
 
 RUN adduser -D $USER && \
     mkdir -p /data /home/$USER && \
