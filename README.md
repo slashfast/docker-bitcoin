@@ -35,11 +35,6 @@
 
 ## Getting started
 
-#### get rpcauth pair
-
-
-Generate the rpcauth pair [there](https://jlopp.github.io/bitcoin-core-rpc-auth-generator/) and paste it into the `docker-compose.yml` file or before the command: `RPC_AUTH=user:hash docker compose up`
-
 #### docker-compose
 
 [docker-compose.yml](https://github.com/slashfast/docker-bitcoin/blob/main/docker-compose.yml) to see minimal working setup. When running in production, you can use this as a guide.
@@ -50,7 +45,13 @@ cd docker-bitcoin
 docker compose up
 ```
 
-Before use JSON-RPC, two parameters must be added to the `bitcoin.conf` which must be created in the `.bitcoin` directory:
+#### getting rpcauth pair before using JSON-RPC
+
+Generate an rpcauth pair [there](https://jlopp.github.io/bitcoin-core-rpc-auth-generator/) and paste it into the `docker-compose.yml` file as the `RPC_AUTH=`**user:hash** value, or paste `rpcauth=`**user:hash** into the [`bitcoin.conf`](https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md) file which must be created in the `.bitcoin` directory or `bitcoin` on the host.
+
+#### bind and allow ip before using JSON-RPC
+
+Before use JSON-RPC, two parameters must be added to the [`bitcoin.conf`](https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md)
 
 ```
 rpcbind=<ip>
