@@ -38,7 +38,7 @@
 #### get rpcauth pair
 
 
-Generate the rcpauth pair [there](https://jlopp.github.io/bitcoin-core-rpc-auth-generator/) and paste it into the `docker-compose.yml` file or before the command: `RPC_AUTH=user:hash docker compose up`
+Generate the rpcauth pair [there](https://jlopp.github.io/bitcoin-core-rpc-auth-generator/) and paste it into the `docker-compose.yml` file or before the command: `RPC_AUTH=user:hash docker compose up`
 
 #### docker-compose
 
